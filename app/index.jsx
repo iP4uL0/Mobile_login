@@ -2,11 +2,13 @@
 import { View, Text,  TextInput, Pressable,  StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome"
 import styled from "styled-components/native"
+import Title from "../components/Titulo/titulo"
 // 
 export default function App(){
     return(
     <Tela>
-        <Titulo >Entrar</Titulo>
+        <Title texto={"Entrar"} flag={true}></Title>
+        <Title  texto={"Bem vindo ao app"} flag={false}> </Title>
         <Container >
             <CamposTexto 
                 placeholder="Digite seu e-mail..." 
@@ -40,13 +42,6 @@ flex: 1;
 background-color:#151932 ;
 padding: 26px;
 
-`
-const Titulo = styled.Text`
-font-size: 56px;
-font-weight: bold;
-color: #ffff;
-margin-top: 80px;
-margin-bottom: 80px;
 `
 const Container = styled.View`
 gap: 25;
