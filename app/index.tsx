@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome"
 import styled from "styled-components/native"
 import Title from "../components/Titulo/titulo"
 import React, { useState } from "react";
+import InputTexto from "../components/input/input";
 // 
 export default function App(){
     const [email, setEmail] = useState('')
@@ -13,14 +14,14 @@ export default function App(){
         <Title texto={"Entrar"} flag={true}/>
         <Title  texto={"Bem vindo ao app"} flag={false}/>
         <Container >
-            <CamposTexto 
-           
+            <InputTexto 
+            erro={true}
                 placeholder="Digite seu e-mail..." 
                 placeholderTextColor={'#6C757D'}
                
             />
-            <CamposTexto 
-               
+            <InputTexto 
+               erro={false}
                 secureTextEntry={true}
                 placeholder="Digite sua senha..." 
                 placeholderTextColor={'#6C757D'}
@@ -50,13 +51,6 @@ padding: 26px;
 `
 const Container = styled.View`
 gap: 25;
-`
-const CamposTexto = styled.TextInput`
-background-color: #fff;
-font-size: 18px;
-text-align: center;
-padding:20px;
-border-radius: 20px;
 `
 const ContainerBotao = styled.View`
 margin-top: 65px;
