@@ -14,13 +14,13 @@ export default function App(){
         <Title  texto={"Bem vindo ao app"} flag={false}/>
         <Container >
             <CamposTexto 
-            hasError={true}
+           
                 placeholder="Digite seu e-mail..." 
                 placeholderTextColor={'#6C757D'}
                
             />
             <CamposTexto 
-                hasError={true}
+               
                 secureTextEntry={true}
                 placeholder="Digite sua senha..." 
                 placeholderTextColor={'#6C757D'}
