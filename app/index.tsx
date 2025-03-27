@@ -3,19 +3,24 @@ import { View, Text,  TextInput, Pressable,  StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome"
 import styled from "styled-components/native"
 import Title from "../components/Titulo/titulo"
+import React, { useState } from "react";
 // 
 export default function App(){
+    const [email, setEmail] = useState('')
+    const [senha, setSenha] = useState('')
     return(
     <Tela>
-        <Title texto={"Entrar"} flag={true}></Title>
-        <Title  texto={"Bem vindo ao app"} flag={false}> </Title>
+        <Title texto={"Entrar"} flag={true}/>
+        <Title  texto={"Bem vindo ao app"} flag={false}/>
         <Container >
             <CamposTexto 
+            hasError={true}
                 placeholder="Digite seu e-mail..." 
                 placeholderTextColor={'#6C757D'}
                
             />
             <CamposTexto 
+                hasError={true}
                 secureTextEntry={true}
                 placeholder="Digite sua senha..." 
                 placeholderTextColor={'#6C757D'}
