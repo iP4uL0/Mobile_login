@@ -8,30 +8,78 @@ import InputTexto from "../components/input/input";
 // 
 export default function App(){
     // states utilizados
-    const [email, setEmail] = useState('')
+    const [email, setEmail] = useState('example@example.com')
+    const [erroEmail, setErroEmail] = useState(false)
+    
+    
+    const [senha, setSenha] = useState('@Sla1234')
+    const [erroSenha, setErroSenha] = useState(false)
+    
     useEffect(()=>{
-        console.log(email)
+         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if(!emailRegex.test(email))
+        {
+            // Se o texto não incluir o caractere @ e tiver menos que 3 carateres
+            // sera mostrado o campo como incorreto
+            setErroEmail(true)
+        }
+        else{
+
+            // Quando a pessoa inserir um email valido, as bordas vermelhas vão sumir
+            setErroEmail(false)
+        }
     },[email])
+    
+    useEffect(()=>{
+        //  Usando expressão regular para diminuir a quantidade 
+        //  de condicionais para testar a senha
+        //  Esse Regex testa se a senha:
+        //  * Pelo menos 8 caracteres
+        //  * Pelo menos uma letra maiúscula
+        //  * Pelo menos um número
+        //  * Pelo menos um caractere especial (!@#$%^&*)
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+        if(!passwordRegex.test(senha))
+        {
+            setErroSenha(true)
+        }
+        else
+        {
+            setErroSenha(false)
+        }
+    },[senha])
+
     // 
+
     return(
-    <Tela>
-        <Title texto={"Entrar"} flag={true}/>
+    <Tela>\
+        <Title texto={"Entrar"} flag={true}
+        />
         <Title  texto={"Bem vindo ao app"} flag={false}/>
-        <Container >
+        <Container>
+            <View>
+
             <InputTexto 
-                erro={true}
+                erro={erroEmail}
                 placeholder="Digite seu e-mail..." 
                 placeholderTextColor={'#6C757D'}
                 onChangeText={text => setEmail(text)}
             />
-
+          {erroEmail ? <TextErrorHint>E-mail invalido</TextErrorHint> : null}
+            </View>
+            
+            <View>
             <InputTexto 
-                erro={false}
+                erro={erroSenha}
                 secureTextEntry={true}
                 placeholder="Digite sua senha..." 
                 placeholderTextColor={'#6C757D'}
+                onChangeText={text => setSenha(text)}
                
             />
+             {erroSenha ? <TextErrorHint>Senha invalida</TextErrorHint> : null}
+            </View>
         </Container>
         <ContainerBotao>
             <Botao>
@@ -83,4 +131,8 @@ const LinhaIcones = styled.View`
     justify-content: center;
     gap: 15;
     
+`
+const TextErrorHint = styled.Text`
+    font-size: 16px;
+    color: #E63946;
 `
