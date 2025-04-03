@@ -14,5 +14,7 @@ export default function InputTexto({erro, ...rest} : InputTextoProps){
         {...rest}
 
         />
+    
+   
     )
 }

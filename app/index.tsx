@@ -1,5 +1,5 @@
 // puxando da bilbioteca 
-import { View, Text,  TextInput, Pressable,  StyleSheet } from "react-native";
+import { View, Text,  TextInput, Pressable,  StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome"
 import styled from "styled-components/native"
 import Title from "../components/Titulo/titulo"
@@ -10,7 +10,8 @@ export default function App(){
     // states utilizados
     const [email, setEmail] = useState('example@example.com')
     const [erroEmail, setErroEmail] = useState(false)
-    
+   
+    const[passHide, setPassHide] = useState('true')
     
     const [senha, setSenha] = useState('@Sla1234')
     const [erroSenha, setErroSenha] = useState(false)
@@ -70,14 +71,19 @@ export default function App(){
             </View>
             
             <View>
-            <InputTexto 
-                erro={erroSenha}
-                secureTextEntry={true}
-                placeholder="Digite sua senha..." 
-                placeholderTextColor={'#6C757D'}
-                onChangeText={text => setSenha(text)}
-               
-            />
+            <LinhaTotal>
+                <InputTexto 
+                    erro={erroSenha}
+                    placeholder="Digite sua senha..." 
+                    placeholderTextColor={'#6C757D'}
+                    onChangeText={(text) => setSenha(text)}
+                    secureTextEntry={passHide}
+                />
+                <Icones2 onPress={()=>setPassHide(!passHide)}>
+                    <Icon name={passHide ? 'eye' : 'eye-slash'}
+                    color ='#000' size={30}/>
+                </Icones2>
+              </LinhaTotal>
              {erroSenha ? <TextErrorHint>Senha invalida</TextErrorHint> : null}
             </View>
         </Container>
@@ -95,6 +101,8 @@ export default function App(){
         </ContainerBotao>
     </Tela>)
 }
+
+
 
 const Tela = styled.View`
 flex: 1;
@@ -135,4 +143,13 @@ const LinhaIcones = styled.View`
 const TextErrorHint = styled.Text`
     font-size: 16px;
     color: #E63946;
+`
+const LinhaTotal = styled.View`
+position: relative;
+width: 100%;
+ `
+const Icones2 = styled.TouchableOpacity`
+top: -50;
+align-items: end;
+left: -20;
 `
