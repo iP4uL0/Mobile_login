@@ -2,7 +2,7 @@
 
 # dependencies
 node_modules/
-
+package-lock.json
 # Expo
 .expo/
 dist/
@@ -37,4 +37,3 @@ yarn-error.*
 
 app-example
 
-package-lock.json
