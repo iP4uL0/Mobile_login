@@ -1,10 +1,13 @@
 // puxando da bilbioteca 
-import { View, Text,  TextInput, Pressable,  StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text,  TextInput, Pressable,  StyleSheet, TouchableOpacity, Alert } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome"
 import styled from "styled-components/native"
 import Title from "../components/Titulo/titulo"
 import React, { useEffect, useState } from "react";
 import InputTexto from "../components/input/input";
+import { apiConfig } from "../utils/api";
+
+import { Link, useRouter} from "expo-router";
 // 
 export default function App(){
     // states utilizados
@@ -15,6 +18,9 @@ export default function App(){
     
     const [senha, setSenha] = useState('@Sla1234')
     const [erroSenha, setErroSenha] = useState(false)
+    const [fomulariovalido, setFormularioValido] = useState(true)
+
+    const Router = useRouter()
     
     useEffect(()=>{
          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -33,25 +39,35 @@ export default function App(){
     },[email])
     
     useEffect(()=>{
-        //  Usando expressão regular para diminuir a quantidade 
-        //  de condicionais para testar a senha
-        //  Esse Regex testa se a senha:
-        //  * Pelo menos 8 caracteres
-        //  * Pelo menos uma letra maiúscula
-        //  * Pelo menos um número
-        //  * Pelo menos um caractere especial (!@#$%^&*)
+    
         const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
         if(!passwordRegex.test(senha))
         {
             setErroSenha(true)
+            setFormularioValido(false)
         }
         else
         {
             setErroSenha(false)
+            setFormularioValido(true)
         }
     },[senha])
 
     // 
+    async function login() {
+        try{
+            const resposta = await apiConfig.post('/login',{
+                email: email,
+                senha: senha
+                
+            })
+           Router.push("/(home)/home")
+        }
+        catch(error){
+        alert("Usuario ou senha incorreta")
+        }
+    }
+
 
     return(
     <Tela>\
@@ -77,7 +93,7 @@ export default function App(){
                     placeholder="Digite sua senha..." 
                     placeholderTextColor={'#6C757D'}
                     onChangeText={(text) => setSenha(text)}
-                    secureTextEntry={passHide}
+                    secureTextEntry = {passHide}
                 />
                 <Icones2 onPress={()=>setPassHide(!passHide)}>
                     <Icon name={passHide ? 'eye' : 'eye-slash'}
@@ -88,9 +104,17 @@ export default function App(){
             </View>
         </Container>
         <ContainerBotao>
-            <Botao>
+            <Link href={"/(home)/home"}> 
+          <Botao
+            disable={fomulariovalido}
+           onPress={()=>{
+            login()
+           
+           }}
+            >
                 <TextoBotao>Entrar</TextoBotao>
             </Botao>
+                </Link>
             <LinhaIcones>
                 <Icon name="google" size={30} color="#fff" ></Icon>
                 <Icon name="instagram" size={30} color="#fff" ></Icon>
